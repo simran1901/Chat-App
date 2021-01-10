@@ -7,7 +7,7 @@ class UserImagePicker extends StatefulWidget {
   UserImagePicker(this.imagePickFn);
 
   final Function(File pickedImage) imagePickFn;
-  
+
   @override
   _UserImagePickerState createState() => _UserImagePickerState();
 }
@@ -16,8 +16,14 @@ class _UserImagePickerState extends State<UserImagePicker> {
   File _pickedImage;
 
   void _pickImage() async {
-    final pickedImageFile =
-        File((await ImagePicker().getImage(source: ImageSource.gallery)).path);
+    final pickedImageFile = File(
+      (await ImagePicker().getImage(
+        source: ImageSource.gallery,
+        imageQuality: 50,
+        maxWidth: 150,
+      ))
+          .path,
+    );
     setState(() {
       _pickedImage = pickedImageFile;
     });
